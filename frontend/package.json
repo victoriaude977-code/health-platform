@@ -1,0 +1,27 @@
+{
+  "name": "health-platform-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intelligent Health Management Platform - Vue.js frontend (final-year project)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.8.4",
+    "echarts": "^5.6.0",
+    "element-plus": "^2.9.7",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "vite": "^6.3.5"
+  }
+}

@@ -1,0 +1,14 @@
+# Intelligent Health Management Platform - Backend dependencies
+# Install with:  python -m pip install -r requirements.txt
+Flask>=3.0
+Flask-SQLAlchemy>=3.1
+Flask-JWT-Extended>=4.6
+Flask-Cors>=4.0
+PyMySQL>=1.1          # pure-Python MySQL driver (no compiler needed on Windows)
+SQLAlchemy==2.0.43    # pinned: 2.0.x is a pure-Python wheel (no .pyd C extension).
+                      # SQLAlchemy 2.1.x requires a compiled _util_cy.pyd that the
+                      # Windows Application Control policy on this PC blocks.
+scikit-learn>=1.4     # collaborative filtering (cosine similarity / NearestNeighbors)
+numpy>=1.26
+python-dotenv>=1.0    # .env configuration (used for deployment settings)
+waitress>=3.0         # production WSGI server (replaces Flask's dev server)

@@ -1,0 +1,51 @@
+# Production stack: MySQL + Flask (waitress) + nginx-served Vue build.
+# All secrets come from .env (never committed) - copy .env.example to .env
+# and change every value first.
+#
+#   docker compose up -d --build
+#
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: health_platform
+      MYSQL_USER: tzc_app
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD in .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: mysql+pymysql://tzc_app:${MYSQL_PASSWORD}@db:3306/health_platform?charset=utf8mb4
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?set JWT_SECRET_KEY in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+    volumes:
+      # Persists uploaded avatars across container rebuilds.
+      - uploads_data:/srv/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      # Set FRONTEND_PORT=8080 in .env when adding host-level HTTPS nginx
+      # (docs/deploy.md Step 8); defaults to 80 for plain http://IP.
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  uploads_data:

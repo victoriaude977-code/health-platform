@@ -1,0 +1,269 @@
+/* ---------------------------------------------------------------------------
+   Global theme - health-tech palette used across the whole project:
+   teal #14B8A6 primary, deep navy #0F172A text, soft slate background.
+   Light/dark theming: every surface/text color goes through a CSS variable
+   with an `html.dark` override; Element Plus components are themed by their
+   own dark css-vars stylesheet (imported in main.js).
+--------------------------------------------------------------------------- */
+:root {
+  --brand: #14b8a6;
+  --brand-dark: #0d9488;
+  --navy: #0f172a;
+  --slate: #f4f7f9;
+  --text: #1e293b;
+  --muted: #64748b;
+
+  /* Surfaces & borders (custom components) */
+  --surface: #ffffff;
+  --surface-soft: #fbfdfe;
+  --border: #eef2f6;
+  --border-strong: #e5eaf0;
+  --divider: #f1f5f9;
+  --ink-strong: #0f172a;
+  --ink-mid: #475569;
+  --ink-soft: #334155;
+  --chip-bg: #e6fffb;
+  --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+
+  /* Element Plus primary color overrides */
+  --el-color-primary: #14b8a6;
+  --el-color-primary-light-3: #4ecbbc;
+  --el-color-primary-light-5: #7ddcd1;
+  --el-color-primary-light-7: #abeae3;
+  --el-color-primary-light-8: #c2f0eb;
+  --el-color-primary-light-9: #d9f7f4;
+  --el-color-primary-dark-2: #0d9488;
+}
+
+/* Dark theme: surfaces follow the Element Plus dark palette (#1d1e1f cards
+   on a #141414 page) so custom components and EP components blend. */
+html.dark {
+  --navy: #e2e8f0;
+  --slate: #141414;
+  --text: #d5dbe3;
+  --muted: #8b95a5;
+  --surface: #1d1e1f;
+  --surface-soft: #222324;
+  --border: #303133;
+  --border-strong: #3c3d3f;
+  --divider: #2a2b2d;
+  --ink-strong: #e2e8f0;
+  --ink-mid: #a8b0bc;
+  --ink-soft: #c3c9d2;
+  --chip-bg: rgba(20, 184, 166, 0.16);
+  --shadow: none;
+  --brand-dark: #2dd4bf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: var(--slate);
+}
+
+/* ---------------------------------------------------------------------------
+   App shell (plain flex column - deliberately NOT el-container, whose slot
+   detection misbehaved inside components and pushed content to the right).
+--------------------------------------------------------------------------- */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  padding: 24px 32px 48px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Auth pages (login / register) */
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  background: linear-gradient(135deg, #0f172a 0%, #134e4a 55%, #14b8a6 130%);
+}
+
+.auth-card {
+  width: 420px;
+  max-width: 92vw;
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 36px 36px 28px;
+  box-shadow: 0 18px 50px rgba(2, 20, 25, 0.35);
+}
+
+.auth-card h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: var(--navy);
+}
+
+.auth-card .subtitle {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Page headings */
+.page-title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: var(--navy);
+}
+
+.page-subtitle {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* Cards */
+.el-card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.tag-meal-breakfast { color: #d97706; }
+.tag-meal-lunch { color: #0d9488; }
+.tag-meal-dinner { color: #1d4ed8; }
+.tag-meal-snack { color: #9333ea; }
+
+/* ---------------------------------------------------------------------------
+   Dark-mode overrides for view-scoped styles. `html.dark .x` (0,2,1) beats
+   the scoped selector `.x[data-v-…]` (0,2,0), so views keep their styles
+   and the theme stays centralized here.
+--------------------------------------------------------------------------- */
+html.dark .goal-card {
+  background: linear-gradient(120deg, rgba(20, 184, 166, 0.14) 0%, transparent 60%);
+}
+
+html.dark .big-number,
+html.dark .progress-label,
+html.dark .rec-name,
+html.dark .goal-option-title {
+  color: var(--ink-strong);
+}
+
+html.dark .stat-label,
+html.dark .progress-sublabel {
+  color: var(--muted);
+}
+
+html.dark .stat-unit {
+  color: var(--muted);
+}
+
+html.dark .log-list li {
+  border-bottom: 1px solid var(--divider);
+}
+
+html.dark .log-kcal,
+html.dark .goal-option-sub,
+html.dark .rec-reason {
+  color: var(--ink-mid);
+}
+
+html.dark .macro-item {
+  color: var(--ink-soft);
+}
+
+html.dark .rec-card {
+  background: var(--surface-soft);
+  border-color: var(--border);
+}
+
+html.dark .rec-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .rec-rank {
+  background: var(--chip-bg);
+  color: var(--brand-dark);
+}
+
+html.dark .rec-nutrition {
+  color: var(--brand-dark);
+}
+
+html.dark .swatch,
+html.dark .net-caption,
+html.dark .donut-legend {
+  color: var(--muted);
+}
+
+html.dark .tag-meal-breakfast { color: #f59e0b; }
+html.dark .tag-meal-lunch { color: #2dd4bf; }
+html.dark .tag-meal-dinner { color: #60a5fa; }
+html.dark .tag-meal-snack { color: #c084fc; }
+
+/* ---------------------------------------------------------------------------
+   Responsive: phones (< 768px) and tablets (< 992px).
+--------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .app-main {
+    padding: 18px 18px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: 14px 12px 36px;
+  }
+
+  .auth-card {
+    padding: 26px 20px 20px;
+  }
+
+  .page-title {
+    font-size: 19px;
+  }
+
+  .page-subtitle {
+    font-size: 12.5px;
+    margin-bottom: 14px;
+  }
+
+  /* Inline log forms wrap into a column instead of overflowing. */
+  .el-form--inline {
+    flex-wrap: wrap;
+  }
+
+  .el-form--inline .el-form-item {
+    margin-right: 12px;
+  }
+
+  .el-form--inline .el-form-item .el-select,
+  .el-form--inline .el-form-item .el-input-number,
+  .el-form--inline .el-form-item .el-date-editor {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .card-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
