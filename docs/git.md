@@ -116,6 +116,17 @@ deploy.md step 5 (configure `.env`).
 | PC | `cd ...\coding` → `git add .` → `git commit -m "what changed"` → `git push` |
 | Server | `cd /opt/health-platform` → `git pull` → `docker compose up -d --build` |
 
+**Important notes:**
+
+- **Pushing to GitHub does NOT update the server.** The pull + rebuild on
+  the server is what deploys. `docker compose up -d --build` recreates only
+  the containers whose image changed — no separate restart step exists.
+- **Frontend changes need a local build first:** if you edited anything in
+  `frontend/src/`, run `npm run build` inside `coding\frontend` *before*
+  `git add .` and commit the new `frontend/dist/`. The server serves the
+  committed bundle and never builds it itself.
+- **Backend-only changes** need no local build — just commit and push.
+
 ---
 
 ## Troubleshooting
