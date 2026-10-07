@@ -98,7 +98,9 @@ docker compose up -d --build
 ```
 
 First boot takes 1–3 minutes (images are downloaded, MySQL initializes, the
-backend seeds the reference data). Watch progress with:
+backend seeds the reference data). The frontend is prebuilt and committed as
+`frontend/dist/` (build it on a dev machine with `npm run build`), so the
+server build never runs npm install / vite build. Watch progress with:
 
 ```
 docker compose logs -f backend
