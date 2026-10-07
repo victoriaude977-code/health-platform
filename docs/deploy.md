@@ -119,8 +119,11 @@ Demo login: `demo` / `demo1234`.
 ## Step 7 — Run the test suite against production
 
 ```
-docker compose exec backend python smoke_test.py
+docker compose exec backend python smoke_test.py http://127.0.0.1:8000
 ```
+
+(The base URL argument is required in the container — the API listens on
+8000 there, not the dev server's 5000.)
 
 Expected: `42 passed, 0 failed`.
 
